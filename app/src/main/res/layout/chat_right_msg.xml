@@ -16,6 +16,8 @@
 
     <TextView
             android:id="@+id/user_msg"
+            android:background="@drawable/comming_out_chat_bg"
+            android:padding="4dp"
             android:layout_toLeftOf="@id/user_icon"
             android:layout_marginTop="20dp"
             android:gravity="center_vertical"
