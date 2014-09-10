@@ -5,3 +5,6 @@
 build/
 *.iml
 .idea
+
+# Yun demo account
+AccountUtil.java

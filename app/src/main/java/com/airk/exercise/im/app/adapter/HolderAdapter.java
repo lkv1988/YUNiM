@@ -9,6 +9,10 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.airk.exercise.im.app.R;
+import com.airk.exercise.im.app.bean.ChatUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Kevin on 2014/9/3.
@@ -27,11 +31,14 @@ public class HolderAdapter extends RecyclerView.Adapter {
             ButterKnife.inject(this, itemView);
         }
     }
+    private List<ChatUtil> mChats = new ArrayList<ChatUtil>();
+    private final int INCOMING = 1;
+    private final int OUTGOING = 0;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
-        if (viewType == 0) {
+        if (viewType == INCOMING) {
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.chat_left_msg, parent, false);
         } else {
@@ -41,14 +48,29 @@ public class HolderAdapter extends RecyclerView.Adapter {
         return new ViewHolder(v);
     }
 
+    public int addChatMsg(List<ChatUtil> list) {
+        mChats.addAll(list);
+        notifyDataSetChanged();
+        return mChats.size();
+    }
+
+    public int addChatMsg(ChatUtil msg) {
+        mChats.add(msg);
+        notifyDataSetChanged();
+        return mChats.size();
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder) holder).mMsg.setText("Position" + position + ":" + getItemViewType(position));
+        if (mChats == null || mChats.size() == 0) {
+            return;
+        }
+        ((ViewHolder) holder).mMsg.setText(mChats.get(position).msg);
     }
 
     @Override
     public int getItemCount() {
-        return 500;
+        return mChats.size();
     }
 
     /**
@@ -65,6 +87,7 @@ public class HolderAdapter extends RecyclerView.Adapter {
      */
     @Override
     public int getItemViewType(int position) {
-        return position % 2;
+        ChatUtil chat = mChats.get(position);
+        return chat.incoming ? INCOMING : OUTGOING;
     }
 }
