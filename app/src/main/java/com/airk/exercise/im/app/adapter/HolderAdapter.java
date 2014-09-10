@@ -11,7 +11,9 @@ import butterknife.InjectView;
 import com.airk.exercise.im.app.R;
 
 /**
- * Created by Administrator on 2014/9/3.
+ * Created by Kevin on 2014/9/3.
+ *
+ * RecyclerView Adapter
  */
 public class HolderAdapter extends RecyclerView.Adapter {
     public class ViewHolder extends RecyclerView.ViewHolder {
